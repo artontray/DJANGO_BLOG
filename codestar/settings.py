@@ -31,6 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["codestar-django-blog-project.herokuapp.com", "localhost"]
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Application definition
 
