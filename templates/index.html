@@ -30,13 +30,31 @@
                             <hr />
                             <p class="card-text text-muted h6">{{ post.created_on}} <i class="far fa-heart"></i>
                                 {{ post.number_of_likes }}</p>
+                                <ul>{% for comment in post.comments.all %}
+                                        <li>{{ comment }}</li>
+
+                                    {% endfor %}
+
+                                    LA -> {{ display_all_post }}
+                                </ul>
+                                <ul>{% for post in display_all_post %}
+                                    <li>{{ post.title }}</li>
+
+                                {% endfor %}
+
+                               
+                                </ul>
                                 <div class="col-1">
-                                    {% with comments.count as total_comments %}
-                                    <strong class="text-secondary"><i class="far fa-comments"></i>
-                                        <!-- Our total_comments variable goes before the closing strong tag -->
-                                        {{ total_comments }}</strong>
-                                    {% endwith %}
+                                 
+                                    
+                                       
+                                        <strong class="text-secondary"><i class="far fa-comments"></i>
+                                            <!-- Our total_comments variable goes before the closing strong tag -->
+                                            -> : {{ post_count }}</strong>
+                                     
+
                                 </div>
+
                         </div>
                     </div>
                 </div>

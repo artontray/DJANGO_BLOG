@@ -2,14 +2,47 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Post
+from .models import Comment
 from .forms import CommentForm
+from django.template import loader
+from django.views.generic.base import TemplateView
 
 class PostList(generic.ListView):
     model = Post
+
+
+
     context_object_name = 'all_post'
     queryset = Post.objects.filter(status=1).order_by("-created_on")
+    # queryset = Post.objects.filter(status=1,comments__body__contains="fvsgfdgffd").order_by("-created_on")
     template_name = "index.html"
     paginate_by = 6
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+        context['comment_count'] = Comment.objects.all()
+        context['display_all_post'] = Post.objects.all()
+        # import pdb;pdb.set_trace()
+        
+        # context['post_count'] = Post.objects.all().count()
+        return context
+
+
+
+class Ex2View(TemplateView):
+
+    template_name = "index.html"
+
+
+    def get_context_data(self, **kwargs):
+        
+        context = super().get_context_data(**kwargs)
+       
+        #. context = Comment.objects.filter(approved=True).order_by("-created_on")
+        context['posts'] = Comment.objects.all().count()
+        context['data'] = "context data from Ex2"
+        return context
+
 
 
 class PostDetail(View):
